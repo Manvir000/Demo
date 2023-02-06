@@ -1,0 +1,32 @@
+package com.DemoQA.testCases;
+
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
+import org.testng.Assert;
+import com.DemoQA.pageObjects.LoginPage;
+import com.DemoQA.pageObjects.ProfilePage;
+import com.DemoQA.testBase.BaseClass;
+
+@Test
+public class TC001_LoginTest extends BaseClass {
+	
+	
+	
+	public void Logintest() throws InterruptedException {
+		LoginPage lp = new LoginPage(driver);
+		lp.SetUserName(prop.getProperty("username"));
+		lp.SetUserpswd(prop.getProperty("password"));
+		lp.clickloginbutton();
+		
+		ProfilePage pp = new ProfilePage(driver);
+	    boolean actval=	pp.logoutBtnisdisplayed();
+
+	    Assert.assertEquals(actval, true, "User didnot logged in successfully");
+	    System.out.println("User logged in succesfully");
+			
+	}
+	
+
+	
+
+}

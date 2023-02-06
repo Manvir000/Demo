@@ -1,0 +1,23 @@
+package com.DemoQA.testCases;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import com.DemoQA.testBase.BaseClass;
+
+public class TC002_Gettitle extends BaseClass {
+	
+	@Test
+	public void Gettitle() {
+		
+		String apptitle= driver.getTitle();
+		
+		Assert.assertEquals(apptitle,"DEMOQA" , "Title of the application is not correct");
+		//System.out.println("Title of the page is --"+ apptitle);
+		
+		log.info("Title of the page is "+ apptitle);
+		
+		
+	}
+
+}

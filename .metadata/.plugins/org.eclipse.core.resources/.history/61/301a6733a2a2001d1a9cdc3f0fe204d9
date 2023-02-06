@@ -1,0 +1,47 @@
+package com.DemoQA.testBase;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class BaseClass {
+	
+public WebDriver driver;
+public Properties prop;
+	
+	@BeforeClass
+	public void setup() throws IOException {
+		
+		prop = new Properties();
+		FileInputStream fis =new FileInputStream(".\\resources\\config.properties");
+		prop.load(fis);
+		
+		
+		
+		WebDriverManager.chromedriver().setup();
+		driver= new ChromeDriver();
+		System.out.println("Chrome opened succesfully");
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.get(prop.getProperty("url") );
+		
+		System.out.println("DemoQA is  opened succesfully");
+			
+	}
+	
+	@AfterClass
+	public void teardown() {
+		
+		driver.quit();
+		
+	}
+
+}

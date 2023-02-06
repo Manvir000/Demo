@@ -1,0 +1,59 @@
+package com.DemoQA.testBase;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.internal.LogManagerStatus;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.server.log.LoggingManager;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class BaseClass {
+	
+public WebDriver driver;
+public Properties prop;
+
+public Logger log=  LogManager.getLogger(this.getClass());
+	
+	@BeforeClass
+	public void setup() throws IOException {
+		
+		prop = new Properties();
+		FileInputStream fis =new FileInputStream(".\\resources\\config.properties");
+		prop.load(fis);
+		
+		
+		
+		WebDriverManager.chromedriver().setup();
+		driver= new ChromeDriver();
+		//System.out.println("Chrome opened succesfully");
+		
+		log.info("Chrome opened successfully");
+		
+		
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.get(prop.getProperty("url") );
+		
+		//System.out.println("DemoQA is  opened succesfully");
+		
+		log.info("DemoQA is  opened succesfully");
+			
+	}
+	
+	@AfterClass
+	public void teardown() {
+		
+		driver.quit();
+		
+	}
+
+}
